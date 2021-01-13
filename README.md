@@ -52,3 +52,8 @@ Edit / Update Patient Screenshot
 Delete Patient Dialog Screenshot
 
 <img src="screenshots/delete-patient.PNG">
+
+## Live Preview on Heroku
+
+Preview The Website Here: 
+[Patients' Records](http://medbook-dev-app.herokuapp.com)
