@@ -25,7 +25,10 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white">
             <div class="container py-2">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <div class="d-flex align-items-center">
+                        <span class=""><i class="fas fa-briefcase-medical fa-2x"></i></span>
+                        <span class="font-weight-bold mx-3">{{ config('app.name', 'Patients Records') }}</span>
+                    </div>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -83,5 +86,11 @@
         </main>
     </div>
     @livewireScripts
+    <script>
+        window.livewire.on('closeUpsertPatientModal', () => $('#upsert-patient-modal').modal('hide'))
+        window.livewire.on('closeDeletePatientModal', () => $('#delete-patient-modal').modal('hide'))
+        window.livewire.on('showUpsertPatientModal', () => $('#upsert-patient-modal').modal('show'))
+        window.livewire.on('showDeletePatientModal', () => $('#delete-patient-modal').modal('show'))
+    </script>
 </body>
 </html>

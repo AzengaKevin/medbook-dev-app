@@ -32,3 +32,23 @@ Configure the database credentials in your laptop. then run the foloowing comman
 ```
 
 Launch your browser and visit the following url http://localhost:8000
+
+## Patient Resource Screenshots
+
+CRUD Screenshots
+
+Browse Screenshot
+
+<img src="screenshots/patients.PNG">
+
+Add Patient Screenshot
+
+<img src="screenshots/add-patient.PNG">
+
+Edit / Update Patient Screenshot
+
+<img src="screenshots/edit-patient.PNG">
+
+Delete Patient Dialog Screenshot
+
+<img src="screenshots/delete-patient.PNG">
