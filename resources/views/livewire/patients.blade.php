@@ -35,11 +35,10 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade show" id="upsert-patient-modal" tabindex="-1" aria-labelledby="upsert-patient-modalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog">
-            <form action="{{ route('patients.create') }}" method="post">
-                @csrf
+    <div wire:ignore.self class="modal fade show" id="upsert-patient-modal" tabindex="-1"
+        aria-labelledby="upsert-patient-modalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <form wire:submit.prevent="savePatient" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="upsert-patient-modalLabel">Add Patient</h5>
@@ -48,42 +47,75 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div class="form-group">
-                            <label for="name">Name</label>
-                            <input type="text" class="form-control" id="name" aria-describedby="nameHelp"
-                                name="name">
-                            <small id="nameHelp" class="form-text text-muted">Name of the patient</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="dob">Date Of Birth</label>
-                            <input type="date" class="form-control" id="dob" name="date_of_birth">
+
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                                    wire:model.lazy="name">
+                                @error('name')
+                                <span class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label for="dob">Date Of Birth</label>
+                                <input type="date" class="form-control @error('date_of_birth') is-invalid @enderror"
+                                    id="dob" wire:model.lazy="date_of_birth">
+                                @error('date_of_birth')
+                                <span class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="gender">Gender</label>
-                            <select id="gender" name="gender_id" class="custom-select">
-                                <option value="" selected>Select Gender...</option>
-                                @foreach ($genders as $gender)
-                                <option value="{{ $gender->id }}">{{ $gender->name }}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-md-6 mt-3">
+                                <label for="gender">Gender</label>
+                                <select id="gender" wire:model.lazy="gender_id"
+                                    class="custom-select @error('gender_id') is-invalid @enderror">
+                                    <option value="" selected>Select Gender...</option>
+                                    @foreach ($genders as $gender)
+                                    <option value="{{ $gender->id }}">{{ $gender->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('gender_id')
+                                <span class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+
+                            <div class="col-md-6 mt-3">
+                                <label for="service">Service</label>
+                                <select id="service" class="custom-select @error('service_id') is-invalid @enderror"
+                                    wire:model.lazy="service_id">
+                                    <option value="" selected>Select Service...</option>
+                                    @foreach ($services as $service)
+                                    <option value="{{ $service->id }}" selected>{{ $service->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('service_id')
+                                <span class="invalid-feedback">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="service">Service</label>
-                            <select id="service" class="custom-select" name="service_id">
-                                <option value="" selected>Select Service...</option>
-                                @foreach ($services as $service)
-                                <option value="{{ $service->id }}" selected>{{ $service->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                        <div class="form-group">
+                        <div class="form-group mt-3">
                             <label for="comments">General Comments</label>
-                            <textarea class="form-control" name="comments" id="comments" rows="3">
+                            <textarea class="form-control @error('comments') is-invalid @enderror"
+                                wire:model.lazy="comments" id="comments" rows="3"></textarea>
 
-                        </textarea>
+                            @error('comments')
+                            <span class="invalid-feedback">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="modal-footer">
