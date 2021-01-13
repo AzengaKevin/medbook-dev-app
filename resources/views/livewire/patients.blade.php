@@ -4,8 +4,7 @@
         <h3 class="font-weight-bold">Patients</h3>
 
         <button class="btn btn-primary" class="btn btn-primary" data-toggle="modal"
-            data-target="#upsert-patient-modal">Add
-            Patient</button>
+            data-target="#upsert-patient-modal">Add Patient</button>
     </div>
 
     <div class="table-responsive">
@@ -35,7 +34,7 @@
     </div>
 
     <!-- Modal -->
-    <div wire:ignore.self class="modal fade show" id="upsert-patient-modal" tabindex="-1"
+    <div wire:ignore.self class="modal fade" id="upsert-patient-modal" tabindex="-1" wire:model="showUpsertModal"
         aria-labelledby="upsert-patient-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <form wire:submit.prevent="savePatient" method="post">

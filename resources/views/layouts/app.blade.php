@@ -83,5 +83,10 @@
         </main>
     </div>
     @livewireScripts
+    <script>
+        window.livewire.on('modalClose', ()=>{
+            $('#upsert-patient-modal').modal('hide')
+        })
+    </script>
 </body>
 </html>

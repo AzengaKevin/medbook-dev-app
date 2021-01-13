@@ -33,8 +33,14 @@ class Patients extends Component
         $data = $this->validate();
 
         Patient::create($data);
+
+        //Closing the modal, should be handle in JavaScript
+        $this->emit('modalClose');
     }
 
+    /**
+     * Validation rules
+     */
     public function rules()
     {
         return [
