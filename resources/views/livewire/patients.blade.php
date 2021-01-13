@@ -16,17 +16,24 @@
                     <th scope="col">Gender</th>
                     <th scope="col">Type f Service</th>
                     <th scope="col">General Comments</th>
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody>
 
                 @foreach ($patients as $patient)
                 <tr>
-                    <th>{{ $patient->name }}</th>
+                    <td>{{ $patient->name }}</td>
                     <td>{{ $patient->date_of_birth->format('d/m/Y') }}</td>
                     <td>{{ $patient->gender->name }}</td>
                     <td>{{ $patient->service->name }}</td>
                     <td>{{ $patient->comments }}</td>
+                    <td class="d-flex justify-content-around">
+                        <button class="btn btn-sm btn-primary" type="button"
+                            wire:click="showUpsertModal({{ $patient }})">
+                            <i class="fa fa-edit"></i></button>
+                        <button class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash-alt"></i></button>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>
@@ -34,13 +41,14 @@
     </div>
 
     <!-- Modal -->
-    <div wire:ignore.self class="modal fade" id="upsert-patient-modal" tabindex="-1" wire:model="showUpsertModal"
+    <div wire:ignore.self class="modal fade" id="upsert-patient-modal" tabindex="-1"
         aria-labelledby="upsert-patient-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
-            <form wire:submit.prevent="savePatient" method="post">
+            <form>
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="upsert-patient-modalLabel">Add Patient</h5>
+                        <h5 class="modal-title" id="upsert-patient-modalLabel">
+                            {{ is_null($patientId) ? 'Add Patient' : 'Edit Patient' }}</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -119,7 +127,12 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button class="btn btn-primary">Submit</button>
+
+                        @if (is_null($patientId))
+                        <button wire:click.prevent="savePatient" class="btn btn-primary">Submit</button>
+                        @else
+                        <button wire:click.prevent="updatePatient" class="btn btn-primary">Update</button>
+                        @endif
                     </div>
                 </div>
             </form>

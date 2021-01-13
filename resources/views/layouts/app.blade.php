@@ -84,9 +84,8 @@
     </div>
     @livewireScripts
     <script>
-        window.livewire.on('modalClose', ()=>{
-            $('#upsert-patient-modal').modal('hide')
-        })
+        window.livewire.on('closeUpsertPatientModal', () => $('#upsert-patient-modal').modal('hide'))
+        window.livewire.on('showUpsertPatientModal', () => $('#upsert-patient-modal').modal('show'))
     </script>
 </body>
 </html>
