@@ -55,6 +55,9 @@ class Patients extends Component
         ];
     }
 
+    /**
+     * Show the upsert modal for updating patient records
+     */
     public function showUpsertModal(Patient $patient)
     {
         $this->patientId = $patient->id;
@@ -63,11 +66,26 @@ class Patients extends Component
         $this->gender_id = $patient->gender_id;
         $this->service_id = $patient->service_id;
         $this->comments = $patient->comments;
-
-        //Closing the modal, should be handle in JavaScript
+        
         $this->emit('showUpsertPatientModal');
     }
 
+    /**
+     * Show the delete user confirmation modal
+     */
+    public function showDeleteModal(Patient $patient)
+    {
+        $this->patientId = $patient->id;
+
+        $this->name = $patient->name;
+        
+        $this->emit('showDeletePatientModal');
+        
+    }
+
+    /**
+     * Updating patient db records
+     */
     public function updatePatient()
     {
         $data = $this->validate();
@@ -81,5 +99,20 @@ class Patients extends Component
             $this->emit('closeUpsertPatientModal');
         }
 
+    }
+
+    /**
+     * Deleting a patient record from the databse
+     */
+    public function deletePatient()
+    {
+        if(!is_null($this->patientId)){
+
+            Patient::destroy($this->patientId);
+    
+            $this->reset();
+    
+            $this->emit('closeDeletePatientModal');
+        }
     }
 }

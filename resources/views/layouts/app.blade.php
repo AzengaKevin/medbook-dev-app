@@ -85,7 +85,9 @@
     @livewireScripts
     <script>
         window.livewire.on('closeUpsertPatientModal', () => $('#upsert-patient-modal').modal('hide'))
+        window.livewire.on('closeDeletePatientModal', () => $('#delete-patient-modal').modal('hide'))
         window.livewire.on('showUpsertPatientModal', () => $('#upsert-patient-modal').modal('show'))
+        window.livewire.on('showDeletePatientModal', () => $('#delete-patient-modal').modal('show'))
     </script>
 </body>
 </html>

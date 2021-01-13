@@ -32,7 +32,9 @@
                         <button class="btn btn-sm btn-primary" type="button"
                             wire:click="showUpsertModal({{ $patient }})">
                             <i class="fa fa-edit"></i></button>
-                        <button class="btn btn-sm btn-danger" type="button"><i class="fa fa-trash-alt"></i></button>
+                        <button class="btn btn-sm btn-danger" type="button"
+                            wire:click="showDeleteModal({{ $patient }})">
+                            <i class="fa fa-trash-alt"></i></button>
                     </td>
                 </tr>
                 @endforeach
@@ -40,7 +42,7 @@
         </table>
     </div>
 
-    <!-- Modal -->
+    <!-- Upsert Modal -->
     <div wire:ignore.self class="modal fade" id="upsert-patient-modal" tabindex="-1"
         aria-labelledby="upsert-patient-modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -138,5 +140,26 @@
             </form>
         </div>
     </div>
+
+    <!-- Delete Patient Modal -->
+    <div class="modal" tabindex="-1" id="delete-patient-modal" role="dialog">
+        <div class="modal-dialog" role="dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Delete Patient</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>Are you sure you want to delete the patient, <span class="font-weight-bold">{{ $name }}</span></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Nevermind</button>
+              <button type="button" wire:click="deletePatient" class="btn btn-danger">Sure</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </div>
